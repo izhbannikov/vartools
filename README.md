@@ -1,10 +1,13 @@
-#vartools - Variant Association tools R-package.
+#vartools - Variant Association tools R-package
 
-## Installation and usage
+## Installation
 
 ```R CMD INSTALL vartools```
 
 ```
+
+## Usage
+
 library(vartools)
 
 #CMC test:
