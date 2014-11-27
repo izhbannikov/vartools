@@ -1,7 +1,7 @@
-cmc <- function(filename, method="fisher") {
+cmc <- function(table, method="fisher") {
   # Input table consists of columns and rows. Rows are individuals and columns are:
   # First column represents a status (disease / no disease) and other column represent markers.
-  pgdata <- as.matrix(read.table(filename, as.is=T, skip = 1))
+  pgdata <- as.matrix(read.table(table, as.is=T, skip = 1))
   markers <- pgdata[,1]; # Markers
   status <- ((rowSums(as.matrix(pgdata[,-1])))>0);
   

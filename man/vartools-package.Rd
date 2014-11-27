@@ -3,40 +3,59 @@
 \alias{vartools}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Variant Association tools
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+\bold{vartools} is an R-package for the analysis of variants and currently has two methods: \bold{CMC} and \bold{KBAC}.
 }
 \details{
 \tabular{ll}{
 Package: \tab vartools\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2014-11-19\cr
-License: \tab What license is it under?\cr
+Date: \tab 2014-11-27\cr
+License: \tab GPL (>= 2) \cr
 }
-~~ An overview of how to use the package, including the most ~~
-~~ important functions ~~
+
+Package contains the following functions:
+
+\bold{CMC} - implements the CMC statistic in [Liu and Leal 2008]. It carries out case-control association testing for rare variants for whole exome association studies.
+
+\bold{KBAC} - implements the KBAC statistic in [Liu and Leal 2010].
+
 }
 \author{
-Who wrote it
+Ilya Y. Zhbannikov
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Ilya Y. Zhbannikov | i.zhbannikov@mail.ru
+
 }
 \references{
-~~ Literature or other references for background information ~~
+Liu DJ,  Leal SM, 2010 A Novel Adaptive Method for the Analysis of Next-Generation Sequencing Data to Detect Complex Trait Associations with Rare Variants Due to Gene Main Effects and Interactions. PLoS Genet 6(10): e1001156. doi:10.1371/journal.pgen.1001156 
+
+Liu DJ,  Leal SM, 2008 Methods for Detecting Associations
+with Rare Variants for Common Diseases: Application to Analysis of Sequence Data. The American Journal of Human Genetics, 83, DOI10.1016/j.ajhg.2008.06.024 
 }
-~~ Optionally other standard keywords, one per line, from file ~~
-~~ KEYWORDS in the R documentation directory ~~
+
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
 \examples{
-~~ simple examples of the most important functions ~~
+#CMC test
+# Load the package
+library(vartools)
+?cmc
+
+cmc.pvalue <- cmc(table=system.file("extdata","phengen.dat",package="vartools"))
+print(cmc.pvalue)
+summary(cmc.pvalue)
+
+#KBAC test
+alpha <- 0.05
+num.permutation <- 3000
+quiet <- 1
+alternative <- 1
+maf.upper.bound <- 0.05
+kbac.pvalue <- kbac(table=system.file("extdata","phengen.dat",package="vartools"), alpha, num.permutation, quiet, maf.upper.bound, alternative)
+print(kbac.pvalue)
+summary(kbac.pvalue)
 }

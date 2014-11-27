@@ -1,7 +1,9 @@
+useDynLib(vartools)
 exportPattern("^[[:alpha:]]+")
 # Import required packages
 # none so far 
 # Export functions defined in R code
 export("cmc")
+export("kbac")
 
 

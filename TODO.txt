@@ -1,0 +1,15 @@
+Needed tests
+
+Single gene association methods:
+- C(α) test
+- RBT test
+- RareCover test
+- VT test
+- WSS test
+- aSum test 
+
+Joint assosiation analysis methods:
+- GRANVIL
+- WeightedBurdenBt
+- Variable thresholds
+- SKAT, Meta SKAT
