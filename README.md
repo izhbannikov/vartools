@@ -4,8 +4,6 @@
 
 ```R CMD INSTALL vartools```
 
-```
-
 ## Usage
 
 library(vartools)
