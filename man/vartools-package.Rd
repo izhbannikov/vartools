@@ -6,14 +6,14 @@
 Variant Association tools
 }
 \description{
-\bold{vartools} is an R-package for the analysis of variants and currently has two methods: \bold{CMC} and \bold{KBAC}.
+\bold{vartools} is an R-package for the analysis of variants and currently has tree methods: \bold{CMC}, \bold{KBAC} and \bold{RVE}.
 }
 \details{
 \tabular{ll}{
 Package: \tab vartools\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2014-11-27\cr
+Date: \tab 2014-11-28\cr
 License: \tab GPL (>= 2) \cr
 }
 
