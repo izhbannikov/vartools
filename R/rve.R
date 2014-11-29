@@ -1,4 +1,5 @@
-rve <- function(table) {
-  stat <- fisher.test(table)$p.value # Fisher's exact test
+rve <- function(data) {
+  # Performs a Kruskal-Wallis rank sum test.
+  stat <- kruskal.test(data) 
   stat
 }
