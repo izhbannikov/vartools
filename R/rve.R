@@ -1,5 +1,5 @@
-rve <- function(data) {
-  # Performs a Kruskal-Wallis rank sum test.
-  stat <- kruskal.test(data) 
+rve <- function(x, y=NULL) {
+  # Performs a one-sided  Wilcox test:
+  stat <- wilcox.test(x, y, alternative = "g")        # greater
   stat
 }

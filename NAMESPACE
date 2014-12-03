@@ -5,5 +5,7 @@ exportPattern("^[[:alpha:]]+")
 # Export functions defined in R code
 export("cmc")
 export("kbac")
+export("calpha")
+export(rve)
 
 

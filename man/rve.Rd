@@ -2,20 +2,32 @@
  \alias{rve}
  \title{RVE statistic implementation}
  \description{
- This program implements the RVE statistic in [Cohen JC, Kiss RS, Pertsemlidis A, Marcel YL, McPherson R, et al. (2004)]. The RVE was first introduced in the analysis of seuence data from Dallas Heart Study. Performs a Kruskal-Wallis rank sum test.
+ This program implements the RVE statistic in [Cohen JC, Kiss RS, Pertsemlidis A, Marcel YL, McPherson R, et al. (2004)]. The RVE was first introduced in the analysis of seuence data from Dallas Heart Study. Performs a one-sided Wilcoxon's two-sample test.
 
 
 }
 \usage{
-rve(table)
+rve(x,y)
 }
 
 \arguments{
-      \item{table}{a contingency table, DO NOT allow for missing data. }
+      \item{x}{numeric vector of data values, DO NOT allow for missing data (will be omitted). }
+      \item{y}{an optional numeric vector of data values, missing data will be omitted.}
 }
 
 \value{
-	\item{pvalue}{the p-value of test.}
+	A list with class "htest" containing the following components:
+\item{statistic}{the value of the test statistic with a name describing it.}
+\item{parameter}{the parameter(s) for the exact distribution of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{null.value}{the location parameter mu.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{the type of test applied.}
+\item{data.name}{a character string giving the names of the data.}
+\item{conf.int}{a confidence interval for the location parameter. (Only present if argument conf.int = TRUE.)}
+\item{estimate}{an estimate of the location parameter. (Only present if argument conf.int = TRUE.)}
+
+
 }
 
 \details{
@@ -30,30 +42,12 @@ Cohen JC, Kiss RS, Pertsemlidis A, Marcel YL, McPherson R, et al. (2004) Multipl
 
 \examples{
 # Load the package
-
 library(vartools)
 ?rve
 
-## Hollander & Wolfe (1973), 116.
-## Mucociliary efficiency from the rate of removal of dust in normal
-##  subjects, subjects with obstructive airway disease, and subjects
-##  with asbestosis.
-x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
-kruskal.test(list(x, y, z))
-## Equivalently,
-x <- c(x, y, z)
-g <- factor(rep(1:3, c(5, 4, 5)),
-            labels = c("Normal subjects",
-                       "Subjects with obstructive airway disease",
-                       "Subjects with asbestosis"))
-kruskal.test(x, g)
-
-## Formula interface.
-require(graphics)
-boxplot(Ozone ~ Month, data = airquality)
-kruskal.test(Ozone ~ Month, data = airquality)
-
+x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
+y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
+rve.stat <- rve(x, y)
+rve.stat
 
 }
