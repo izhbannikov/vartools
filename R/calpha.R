@@ -72,7 +72,7 @@ calpha <- function(table, perm=NULL) {
       for (i in 1:perm)
       {
         perm.sample = sample(1:length(y))
-        x.perm[i] = my_calpha_method(y[perm.sample], X) 
+        x.perm[i] = calpha_method(y[perm.sample], X) 
       }
       # p-value 
       perm.pval = sum(x.perm^2 > calpha.stat^2) / perm
