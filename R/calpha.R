@@ -16,9 +16,9 @@ calpha_method <- function(casecon, gen) {
 
 # This is C(aplpa) method
 calpha <- function(table, perm=NULL) {  
-  casectrl.dat <- read.table(table, skip = 1)    
-  y <- as.numeric(as.matrix(casectrl.dat[,1]))
-  X <- as.matrix(casectrl.dat[,-1])
+    casectrl.dat <- read.table(table, skip = 1)    
+    y <- as.numeric(as.matrix(casectrl.dat[,1]))
+    X <- as.matrix(casectrl.dat[,-1])
     ## checking arguments
     if (!is.null(perm))
     {
@@ -29,7 +29,7 @@ calpha <- function(table, perm=NULL) {
         perm = 100
       }
     } else perm=0
-    Xy_perm = my_check(y, X, perm)
+    Xy_perm = check_args(y, X, perm)
     y = Xy_perm$y
     X = Xy_perm$X
     perm = Xy_perm$perm

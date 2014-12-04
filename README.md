@@ -45,6 +45,33 @@ rve.stat <- rve(x, y)
 rve.stat
 ```
 
+###VT
+```
+library(vartools)
+?vt
+
+vt.stat <- vt(system.file("extdata","phengen.dat",package="vartools"))
+vt.stat
+```
+
+###RareCover
+```
+library(vartools)
+?rarecover
+
+rarecover.stat <- rarecover(system.file("extdata","phengen.dat",package="vartools"))
+rarecover.stat
+```
+
+###RBT
+```
+library(vartools)
+?rbt
+
+rbt.stat <- rbt(system.file("extdata","phengen.dat",package="vartools"))
+rbt.stat
+```
+
 ## Contact
 
 Ilya Y. Zhbannikov, i.zhbannikov@mail.ru, ilyaz@uidaho.edu

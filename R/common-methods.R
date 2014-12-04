@@ -1,4 +1,4 @@
-my_check <- function(y, X, perm) {
+check_args <- function(y, X, perm) {
     ## Internal function to check argument:s y, X, perm
     
     # y as numeric vector
