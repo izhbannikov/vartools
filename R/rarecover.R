@@ -48,10 +48,9 @@ rarecov_method <- function(casecon, gen, dif) {
     list(stat=Xcorr, pval=Xpval, sel=selected)
 }
 
-rarecover <- function(y, X, maf=0.05, dif=0.5, perm=100) {
-    casectrl.dat <- read.table(table, skip = 1)
-    y <- as.numeric(as.matrix(casectrl.dat[,1]))
-    X <- as.matrix(casectrl.dat[,-1])
+rarecover <- function(table, maf=0.05, dif=0.5, perm=100) {
+    y <- as.numeric(as.matrix(table[,1]))
+    X <- as.matrix(table[,-1])
     ## checking arguments
     Xy_perm = check_args(y, X, perm)
     y = Xy_perm$y
@@ -93,7 +92,7 @@ rarecover <- function(y, X, maf=0.05, dif=0.5, perm=100) {
       for (i in 1:perm)
       {
         perm.sample = sample(1:length(y))
-        rarecov.perm = my_rarecov_method(y[perm.sample], X.new, dif)
+        rarecov.perm = rarecov_method(y[perm.sample], X.new, dif)
         x.perm[i] = rarecov.perm$stat
       }
       ## p-value

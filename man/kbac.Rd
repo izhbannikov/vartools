@@ -10,7 +10,7 @@ kbac(table, alpha = NULL, num.permutation = NULL, quiet = T, maf.upper.bound = 1
 }
 
 \arguments{
-      \item{table}{a path to a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'. DO NOT allow for missing data. }
+      \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'. DO NOT allow for missing data. }
       \item{alpha}{size of test, or the significant level. This feature will be useful in adaptive p-value calculation. If you do not want to use adaptive p-value, set alpha = 999 (or any number greater than 1.0).}
       \item{num.permutation}{number of permutations for p-value calculation.}
       \item{quiet}{when quiet = 0 the screen output would contain a summary of the KBAC test; otherwise only the p-value will be printed on screen.}
@@ -43,17 +43,17 @@ num.permutation <- 3000
 quiet <- 1
 alternative <- 1
 maf.upper.bound <- 0.05
-kbac.pvalue <- kbac(table=system.file("extdata","phengen.dat",package="vartools"), alpha, num.permutation, quiet, maf.upper.bound, alternative)
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
+kbac.pvalue <- kbac(table=casectrl.dat, alpha, num.permutation, quiet, maf.upper.bound, alternative)
 print(kbac.pvalue)
-summary(kbac.pvalue)
 
 # To evaluate test at small alpha we need huge number of permutations. Adaptive approach is thus necessary.
-kbac.pvalue <- kbac(table=system.file("extdata","phengen.dat",package="vartools"), 0.00001, 1000000, quiet, maf.upper.bound, alternative)
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
+kbac.pvalue <- kbac(table=casectrl.dat, 0.00001, 1000000, quiet, maf.upper.bound, alternative)
 print(kbac.pvalue)
-summary(kbac.pvalue)
 
 # Not using adaptive p-value calculation; will take longer time
-kbac.pvalue <- kbac(table=system.file("extdata","phengen.dat",package="vartools"), 9, 1000000, quiet, maf.upper.bound, alternative)
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
+kbac.pvalue <- kbac(table=casectrl.dat, 9, 1000000, quiet, maf.upper.bound, alternative)
 print(kbac.pvalue)
-summary(kbac.pvalue)
 }

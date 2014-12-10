@@ -109,9 +109,8 @@ rbt_method <- function(casecon, gen)
 }
 
 rbt <- function(table, perm=150) {
-    casectrl.dat <- read.table(table, skip = 1)
-    y <- as.numeric(as.matrix(casectrl.dat[,1]))
-    X <- as.matrix(casectrl.dat[,-1])
+    y <- as.numeric(as.matrix(table[,1]))
+    X <- as.matrix(table[,-1])
     ## checking arguments
     Xy_perm = check_args(y, X, perm)
     y = Xy_perm$y

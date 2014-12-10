@@ -10,7 +10,7 @@ cmc(table, method = "fisher")
 }
 
 \arguments{
-      \item{table}{a path to a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'. DO NOT allow for missing data. }
+      \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'. DO NOT allow for missing data. }
       \item{method}{statistical method, Fisher test used by default}
 }
 
@@ -34,7 +34,8 @@ with Rare Variants for Common Diseases: Application to Analysis of Sequence Data
 library(vartools)
 ?cmc
 
-cmc.pvalue <- cmc(table=system.file("extdata","phengen.dat",package="vartools"))
+pgdata <- as.matrix(read.table(system.file("extdata","phengen.dat",package="vartools"), as.is=T, skip = 1))
+cmc.pvalue <- cmc(table=pgdata)
 print(cmc.pvalue)
 summary(cmc.pvalue)
 

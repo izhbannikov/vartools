@@ -11,7 +11,7 @@ rbt(table, perm=150)
 }
 
 \arguments{
-      \item{table}{a path to a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
+      \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
       \item{perm}{positive integer that defines the number of permutations, \code{150} by default.}
 }
 
@@ -39,6 +39,7 @@ Ionita-Laza I, Buxbaum JD, Laird NM, Lange C (2011) A New Testing Strategy to Id
 library(vartools)
 ?rbt
 
-rbt.stat <- rbt(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rbt.stat <- rbt(casectrl.dat)
 rbt.stat
 }

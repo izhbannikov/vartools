@@ -9,9 +9,9 @@
 ###CMC test:
 ```
 library(vartools)
-cmc.pvalue <- cmc(table=system.file("extdata","phengen.dat",package="vartools"))
+pgdata <- as.matrix(read.table(system.file("extdata","phengen.dat",package="vartools"), as.is=T, skip = 1))
+cmc.pvalue <- cmc(table=pgdata)
 print(cmc.pvalue)
-summary(cmc.pvalue)
 ```
 
 ###KBAC test:
@@ -22,17 +22,20 @@ num.permutation <- 3000
 quiet <- 1
 alternative <- 1
 maf.upper.bound <- 0.05
-kbac.pvalue <- kbac(table=system.file("extdata","phengen.dat",package="vartools"), alpha, num.permutation, quiet, maf.upper.bound, alternative)
+
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
+kbac.pvalue <- kbac(table=casectrl.dat, alpha, num.permutation, quiet, maf.upper.bound, alternative)
 print(kbac.pvalue)
-summary(kbac.pvalue)
 ```
 
 ### C-alpha test:
 ```
 library(vartools)
 
-calpha.stat <- calpha(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)    
+calpha.stat <- calpha(casectrl.dat)
 calpha.stat
+
 ```
 
 ###RVE
@@ -50,8 +53,10 @@ rve.stat
 library(vartools)
 ?vt
 
-vt.stat <- vt(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen2.dat",package="vartools"), skip = 1)
+vt.stat <- vt(casectrl.dat)
 vt.stat
+
 ```
 
 ###RareCover
@@ -59,8 +64,10 @@ vt.stat
 library(vartools)
 ?rarecover
 
-rarecover.stat <- rarecover(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rarecover.stat <- rarecover(casectrl.dat)
 rarecover.stat
+
 ```
 
 ###RBT
@@ -68,8 +75,10 @@ rarecover.stat
 library(vartools)
 ?rbt
 
-rbt.stat <- rbt(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rbt.stat <- rbt(casectrl.dat)
 rbt.stat
+
 ```
 
 ## Contact

@@ -9,7 +9,7 @@ rarecover(table, maf=0.05, dif=0.5, perm=250)
 }
 
 \arguments{
-      \item{table}{a path to a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
+      \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
       \item{maf}{numeric value indicating the minor allele frequency threshold for rare variants }
       \item{dif}{numeric value between 0 and 1 as a threshold for the decision criterion in the RareCover algorithm}
       \item{perm}{positive integer that defines the number of permutations}
@@ -40,6 +40,7 @@ Bhatia G, Bansal V, Harismendy O, Schork NJ, Topol EJ, Frazer K, Bafna V (2010) 
 library(vartools)
 ?rarecover
 
-rarecover.stat <- rarecover(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rarecover.stat <- rarecover(casectrl.dat)
 rarecover.stat
 }

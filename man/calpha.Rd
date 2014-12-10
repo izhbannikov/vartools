@@ -9,7 +9,7 @@ calpha(table, perm=NULL)
 }
 
 \arguments{
-      \item{table}{a path to a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
+      \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
       \item{perm}{positive integer that defines the number of permutations}
 }
 
@@ -38,6 +38,7 @@ Benjamin M. Neale, Manuel A. Rivas, Benjamin F. Voight, David Altshuler, Bernie 
 library(vartools)
 ?calpha
 
-calpha.stat <- calpha(system.file("extdata","phengen.dat",package="vartools"))
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)    
+calpha.stat <- calpha(casectrl.dat)
 calpha.stat
 }
