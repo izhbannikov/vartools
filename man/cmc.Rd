@@ -37,6 +37,5 @@ library(vartools)
 pgdata <- as.matrix(read.table(system.file("extdata","phengen.dat",package="vartools"), as.is=T, skip = 1))
 cmc.pvalue <- cmc(table=pgdata)
 print(cmc.pvalue)
-summary(cmc.pvalue)
 
 }
