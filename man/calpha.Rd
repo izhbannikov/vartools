@@ -5,12 +5,12 @@
  C(alpha) (Neale at al., 2011) is a statistical test, developed for disease traits, in order to test for the hypothesis of rare variants disease association. This test has an assumption that rare variants, which were observed in cases and controls and are a mix of various types of variants: phenotypically deleterious, protective and neutral variants.
 }
 \usage{
-calpha(table, perm=NULL)
+calpha(table, permutations=NULL)
 }
 
 \arguments{
       \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
-      \item{perm}{positive integer that defines the number of permutations}
+      \item{permutations}{positive integer that defines the number of permutations}
 }
 
 \value{
@@ -26,7 +26,7 @@ A list with the following elements:
     ....
 }
 
-\author{Ilya Y. Zhbannikov | i.zhbannikov@mail.ru}
+\author{}
 
 \references{
 Benjamin M. Neale, Manuel A. Rivas, Benjamin F. Voight, David Altshuler, Bernie Devlin, Marju Orho-Melander, Sekar Kathiresan, Shaun M. Purcell, Kathryn Roeder and Mark J. Daly (2011), Testing for an Unusual Distribution of Rare Variants. PLoS Genetics doi:10.1371/journal.pgen.1001322. http://dx.plos.org/10.1371/journal.pgen.1001322
