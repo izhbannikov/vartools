@@ -6,9 +6,9 @@ cmc <- function(table, method="fisher") {
   
   # Contingency table:
   ct <- matrix(nrow=2,ncol=2)
-  ct[1,1] <- sum(markers==1 & status==1)
+  ct[1,1] <- sum(markers>=1 & status==1)
   ct[1,2] <- sum(markers==0 & status==1)
-  ct[2,1] <- sum(markers==1 & status==0)
+  ct[2,1] <- sum(markers>=1 & status==0)
   ct[2,2] <- sum(markers==0 & status==0)
   
   print(ct); # Let's take a look at the data
