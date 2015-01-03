@@ -6,6 +6,9 @@ exportPattern("^[[:alpha:]]+")
 export("cmc")
 export("kbac")
 export("calpha")
-export(rve)
+export("vt")
+export("skat")
+export("asum")
+export("wss")
 
 

@@ -8,7 +8,7 @@ calpha_method <- function(casecon, gen) {
   # copies of the i-th variant type
   n <- apply(gen, 2, function(x) sum(x>0, na.rm=TRUE))
   # copies of the i-th variant type in the cases
-  g <- apply(gen[casecon==1,], 2, function(x) sum(x>0, na.rm=TRUE))
+  g <- apply(as.matrix(gen[casecon==1,]), 2, function(x) sum(x>0, na.rm=TRUE))
   # Test statistic 
   Talpha <- sum((g - n*p0)^2 - (n * p0 * (1-p0)))
   Talpha
@@ -33,17 +33,17 @@ calpha <- function(table, permutations=NULL) {
     } 
 
     #Total cases
-    nA <- length(casecon == 1)
+    nA <- length(which(casecon==1))
     #Total controls
-    nU <- length(casecon == 0)
+    nU <- length(which(casecon==0))
     # % of cases
     p0 <- nA / (nA + nU)
     # Total variants:
     m <- ncol(variants)
     # Copies of the i-th variant type
-    n <- apply(variants, 2, function(x) sum(x>0, na.rm=TRUE))
+    n <- apply(as.matrix(variants), 2, function(x) sum(x>0, na.rm=TRUE))
     # copies of the i-th variant type in the cases
-    g <- apply(variants[casecon==1,], 2, function(x) sum(x>0, na.rm=TRUE))
+    g <- apply(as.matrix(variants[casecon==1,]), 2, function(x) sum(x>0, na.rm=TRUE))
     
     # Test statistic:
     calpha.stat <- calpha_method(casecon, variants)
@@ -83,19 +83,18 @@ calpha <- function(table, permutations=NULL) {
     ## Final results
     name <- "C(alpha) Test"
     arg.spec <- c(sum(casecon), 
-                  length(casecon)-length(casecon==1), 
+                  length(casecon)-length(which(casecon==1)), 
                   ncol(variants), 
                   permutations)
     
     names(arg.spec) <- c("cases", "controls", "variants", "n.perms")
     
-    res <- list(calpha.stat <- calpha.stat, 
-               asym.pval <- asym.pval, 
-               perm.pval <- p.pval,
-               zscore <- Zscore,
-               args <- arg.spec, 
-               name <- name)
+    res <- list(calpha.stat = calpha.stat, 
+               asym.pval = asym.pval, 
+               perm.pval = p.pval,
+               zscore = Zscore,
+               args = arg.spec, 
+               name = name)
     
     return(res)
 }
-

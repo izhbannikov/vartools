@@ -11,7 +11,7 @@ vt(table, maf=0.05, perm=50)
 \arguments{
       \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
       \item{maf}{numeric value indicating the minor allele frequency threshold for rare variants (must be a positive number between 0 and 1, \code{maf=0.05} by default).}
-      \item{perm}{positive integer that defines the number of permutations, \code{perm=50} by default.}
+      \item{perm}{positive integer that defines the number of permutations, \code{perm=50} by default. In permutation test, the distribution of the test statistic under the null hypothesis is obtained by calculating all possible values of the test statistic under rearrangements of the labels on the observed data points.}
 }
 
 \value{
@@ -19,7 +19,7 @@ A list with the following elements:
 \item{vt.stat}{VT statistic}
 \item{perm.pval}{permuted p-value}
 \item{args}{descriptive information with number of controls, cases,variants, and permutations}
-\item{name} {name of the statistic}
+\item{name}{name of the statistic}
 }
 
 \details{

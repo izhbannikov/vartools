@@ -1,10 +1,6 @@
 Needed tests
 
-Single gene association methods:
-- WSS test
-- aSum test 
-
 Joint assosiation analysis methods:
 - GRANVIL
 - WeightedBurdenBt
-- SKAT, Meta SKAT
+- MetaSKAT

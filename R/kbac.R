@@ -1,4 +1,4 @@
-kbac <- function(table, alpha, num.permutation, quiet = T, maf.upper.bound = 1.0, alternative = 1) {
+kbac <- function(table, alpha=NULL, num.permutation=100, quiet = T, maf.upper.bound = 1.0, alternative = 1) {
     ydatIn <- as.matrix(table[,1])
     xmat <- as.matrix(table[,-1])
     mafIn <- apply(xmat, 2, function(x) sum(x[which(x > 0)])) / (length(ydatIn) * 2)

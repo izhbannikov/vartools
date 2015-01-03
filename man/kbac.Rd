@@ -12,7 +12,7 @@ kbac(table, alpha = NULL, num.permutation = NULL, quiet = T, maf.upper.bound = 1
 \arguments{
       \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'. DO NOT allow for missing data. }
       \item{alpha}{size of test, or the significant level. This feature will be useful in adaptive p-value calculation. If you do not want to use adaptive p-value, set alpha = 999 (or any number greater than 1.0).}
-      \item{num.permutation}{number of permutations for p-value calculation.}
+      \item{num.permutation}{number of permutations for p-value calculation. In permutation test, the distribution of the test statistic under the null hypothesis is obtained by calculating all possible values of the test statistic under rearrangements of the labels on the observed data points.}
       \item{quiet}{when quiet = 0 the screen output would contain a summary of the KBAC test; otherwise only the p-value will be printed on screen.}
       \item{maf.upper.bound}{The upper bound of the MAF to be included in analysis. MAF is calculated based on observed sample. This can be arbitary although it is usually defined as 0.01 for analysis of rare variants.}
       \item{alternative}{Set alternative = 1 for test of deleterious variants, = 2 for test of both deleterious and protective variants. Please note that this is different from the "one/two-sided" definition in the KBAC paper.} 

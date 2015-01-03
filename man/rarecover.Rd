@@ -12,16 +12,16 @@ rarecover(table, maf=0.05, dif=0.5, perm=250)
       \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
       \item{maf}{numeric value indicating the minor allele frequency threshold for rare variants }
       \item{dif}{numeric value between 0 and 1 as a threshold for the decision criterion in the RareCover algorithm}
-      \item{perm}{positive integer that defines the number of permutations}
+      \item{perm}{positive integer that defines the number of permutations. In permutation test, the distribution of the test statistic under the null hypothesis is obtained by calculating all possible values of the test statistic under rearrangements of the labels on the observed data points.}
 }
 
 \value{
 A list with the following elements:
 \item{rc.stat}{RareCover statistic}
-\item{perm.pval} {permuted p-value}
+\item{perm.pval}{permuted p-value}
 \item{set}{set of selected variants}
 \item{args}{descriptive information with number of controls, cases,variants, and permutations}
-\item{name} {name of the statistic}
+\item{name}{name of the statistic}
 }
 
 \details{

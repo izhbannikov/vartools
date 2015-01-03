@@ -10,16 +10,16 @@ calpha(table, permutations=NULL)
 
 \arguments{
       \item{table}{a numeric matrix with first column having disease status '0' or '1' and the rest columns codes the locus genotype as '0', '1', and '2'.}
-      \item{permutations}{positive integer that defines the number of permutations}
+      \item{permutations}{positive integer that defines the number of permutations. In permutation test, the distribution of the test statistic under the null hypothesis is obtained by calculating all possible values of the test statistic under rearrangements of the labels on the observed data points.}
 }
 
 \value{
 A list with the following elements:
 \item{calpha.stat}{C(alpha) statistic}
-\item{asym.pval} {asymptotic p-value}
+\item{asym.pval}{asymptotic p-value, distributed as Chi-square, with parameter degrees of freedom \code{df=1}}
 \item{perm.pval}{permuted p-value; only when \code{perm} is used}
 \item{args}{descriptive information with number of controls, cases,variants, and permutations}
-\item{name} {name of the statistic}
+\item{name}{name of the statistic}
 }
 
 \details{
