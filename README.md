@@ -1,5 +1,17 @@
 #vartools - Variant Association tools R-package
 
+```vartools``` offers nine varitan association tests: 
+
+* CMC: Combined and Multivariate Collapsing Method for Rare Variants
+* KBAC: Kernel Based Adaptive Clustering Method
+* RBT: Replication Based Test for Protective Variants
+* VT: Variable Thresholds Test for Case Control Data Analysis
+* RareCover: A "Covering Algorithm" for Rare and Low Frequency Variants
+* C(alpha): C-alpha Test for Protective Variants
+* WSS: Weighted Sum Statistic via Rank Test
+* aSum: Data-adaptive Sum Test for Protective and Deleterious Variants
+* SKAT: SNP-set (Sequence) Kernel Association Test Method
+
 ## Installation
 
 ```R CMD INSTALL vartools```
@@ -38,16 +50,6 @@ calpha.stat
 
 ```
 
-###RVE
-```
-library(vartools)
-
-x <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
-y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-rve.stat <- rve(x, y)
-rve.stat
-```
-
 ###VT
 ```
 library(vartools)
@@ -80,6 +82,10 @@ rbt.stat <- rbt(casectrl.dat)
 rbt.stat
 
 ```
+
+### Other tests
+
+In additional, ```vartools``` offers SKAT, WSS, aSum tests.Please check the user manual to use them.
 
 ## Contact
 
