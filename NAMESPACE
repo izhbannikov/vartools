@@ -1,14 +1,18 @@
-useDynLib(vartools)
+useDynLib(vartools, .registration=TRUE)
 exportPattern("^[[:alpha:]]+")
 # Import required packages
 # none so far 
 # Export functions defined in R code
-export("cmc")
-export("kbac")
-export("calpha")
-export("vt")
-export("skat")
-export("asum")
-export("wss")
+export(cmc)
+export(kbac)
+export(calpha)
+export(vt)
+export(skat)
+export(asum)
+export(wss)
+export(coxKM)
+export(rarecover)
+export(rbt)
+
 
 
