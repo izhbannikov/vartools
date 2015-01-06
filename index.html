@@ -1,55 +1,13 @@
-<script type="text/javascript">
-	all_images = new Array (
-		"media/Drugs_world.png",
-		"media/DataMining.jpg",
-		"media/PlotEmission.png",
-		"media/Software-Development-Services.jpg");
-	var ImgNum = 0;
-	var ImgLength = all_images.length - 1;
-	var delay = 2500;
-	var lock = false;
-	var run;
-
-function chgImg(direction) {
- if (document.images) {
-  ImgNum = ImgNum + direction;
-  if (ImgNum > ImgLength) { ImgNum = 0; }
-  if (ImgNum < 0) { ImgNum = ImgLength; }
-  document.slide_show.src = all_images[ImgNum];
- }
-}
-
-function auto() {
- if (lock == true) {
-  lock = false;
-  window.clearInterval(run);
- }
- else if (lock == false) {
-  lock = true;
-  run = setInterval("chgImg(1)", delay);
- }
-}
-</script>
-
-<script type="text/javascript">
- auto();
-</script>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Infographics.Moscow</title>
+    <title>vartools: R-package that incorporates various association tests</title>
     
-    <meta name="author" content="Stephanie Hicks">
+    <meta name="author" content="Ilya Y. Zhbannikov">
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -63,11 +21,10 @@ function auto() {
   	<div class="navbar">
       <div class="navbar-inner">
         <div class="container-narrow">
-          <a href="http://izhbannikov.github.io/infographics.moscow"><img src="media/Logo_large.png" alt="Company logo" width=300 height=200  align = "left" style="opacity:0.4;"></a>
+          <a href="http://izhbannikov.github.io/vartools"><img src="media/Logo_large.png" alt="Company logo" width=100 height=100  align = "left" style="opacity:0.4;"></a>
           <ul class="nav" align="right">
-              <li><a href="http://izhbannikov.github.io/infographics.moscow/">Home</a></li>
-              <li><a href="pages/about.html">About Us</a></li>
-              <li><a href="pages/services.html">Services</a></li>
+              <li><a href="http://izhbannikov.github.io/vartools/">Home</a></li>
+              <li><a href="pages/documentation.html">Examples</a></li>
               <li><a href="pages/resources.html">Resources</a></li>
           </ul>
         </div>
@@ -81,24 +38,34 @@ function auto() {
 <div class="row-fluid">
   <div class="span12">
 
-<div align="center">
- <table border="0">
-  <tr align="center">
-   <td colspan="4"><img src="media/Drugs_world.png" name="slide_show" width=400 height=400 border=400></td>
-   <tr align="center">
-   <td align="left"><a href="javascript:chgImg(-1)" style="font-size:14;">Infographics</a></td>
-   	<td align="left"><a href="javascript:chgImg(-1)" style="font-size:14;">Data mining</a></td>
-   	<td align="center"><a href="javascript:auto()" style="font-size:14;">Analytics</a></td>
-   	<td align="right"><a href="javascript:chgImg(1)" style="font-size:14;">Software development</a></td>
-  </tr>
-  </tr>
- </table>
-</div>
+
+<h4><tt>vartools</tt> - Variant Association tools R-package</h4>
+<p><tt>vartools</tt> offers nine varitan association tests:</p>
+<ul class="nav" align="left" style="list-style-type:circle">
+	<li>CMC: Combined and Multivariate Collapsing Method for Rare Variants</li>
+	<li>KBAC: Kernel Based Adaptive Clustering Method</li>
+	<li>RBT: Replication Based Test for Protective Variants</li>
+	<li>VT: Variable Thresholds Test for Case Control Data Analysis</li>
+	<li>RareCover: A "Covering Algorithm" for Rare and Low Frequency Variants</li>
+	<li>C(alpha): C-alpha Test for Protective Variants</li>
+	<li>WSS: Weighted Sum Statistic via Rank Test</li>
+	<li>aSum: Data-adaptive Sum Test for Protective and Deleterious Variants</li>
+	<li>SKAT: SNP-set (Sequence) Kernel Association Test Method</li>
+</ul>
+
+<h4 id="contact">Download</h4>
+<ul class="nav" align="left" style="list-style-type:circle">
+	<li>Linux binary: </li>
+	<li>OS X binary:</li>
+	<li>Source code: </li>
+	<li>GitHub repository: </li>
+</ul>
 
 
+<h4 id="contact">Documentation</h4>
+<p>Documentation help file: <a href="http://izhbannikov.github.io/vartools/">vartools.pdf</a>. 
+Please use <a href="http://izhbannikov.github.io/vartools/documentation.html">examples</a> for installation and quick start.</p>
 
-<h4>About us</h4>
-<p>Infographics.Moscow offers a wide range of data processing services: Data and Text Mining, Analytics, Statistical Analysis, Consulting and Custom Software Development.</p>
 
 <h4 id="contact">Contact</h4>
 
@@ -118,9 +85,9 @@ function auto() {
       <hr>
       <footer>
         <p><small>
-  <!-- start of MetaAmp Project's footer; modify this part -->
-              <a href="http://www.uidaho.edu"> &copy; 2014 Infographics.Moscow</a>
-  <!-- end of MetaAmp Project's footers footer; modify this part -->
+  <!-- start of Project's footer; modify this part -->
+              <a href="http://www.infographics.moscow"> &copy; 2014 Infographics.Moscow</a>
+  <!-- end of Project's footers footer; modify this part -->
         </small></p>
       </footer>
 

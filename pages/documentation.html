@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    
+    <meta name="author" content="Ilya Y. Zhbannikov">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="../css/kbroman.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+    
+  </head>
+
+  	<div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a href="http://izhbannikov.github.io/infographics.moscow"><img src="../media/Logo_large.png" alt="Company logo" width=100 height=100  align = "left" style="opacity:0.4;"></a>
+		  <ul class="nav">
+              <li><a href="http://izhbannikov.github.io/vartools/">Home</a></li>
+              <li><a href="../pages/documentation.html">Examples</a></li>
+              <li><a href="../pages/resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h2>Installation and quick start</h2>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+  	<p>Documentation in one file: <a href="../media/vartools.pdf">vartools.pdf</a> </p>
+    <h3>Program description</h3>
+    <p><tt>vartools</tt> is an R-package that incorporates various variant association tests.</p>
+	
+	<h3>Installation</h3>
+	<p>Make sure that you have a stable Internet connection and R and GCC installed. Download or clone from the GitHub, save it in some folder you wish.</p>
+	<pre>$R CMD INSTALL vartools</pre>
+	<p>In some cases you have to be a system administrator, so you need to compile <tt>vartools</tt> with the following command:</p>
+	<pre>$sudo R CMD INSTALL vartools</pre>
+	
+	<h3>Quick start</h3>
+	
+	<p><strong>CMC test:</strong></p>
+	<pre>library(vartools)
+pgdata <- as.matrix(read.table(system.file("extdata","phengen.dat",package="vartools"), as.is=T, skip = 1))
+cmc.pvalue <- cmc(table=pgdata)
+print(cmc.pvalue)</pre>
+
+<p><strong>KBAC test:</strong></p>
+	<pre>library(vartools)
+alpha <- 0.05
+num.permutation <- 3000
+quiet <- 1
+alternative <- 1
+maf.upper.bound <- 0.05
+
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
+kbac.pvalue <- kbac(table=casectrl.dat, alpha, num.permutation, quiet, maf.upper.bound, alternative)
+print(kbac.pvalue)</pre>
+
+<p><strong>C-alpha test:</strong></p>
+	<pre>library(vartools)
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)    
+calpha.stat <- calpha(casectrl.dat)
+calpha.stat</pre>
+
+<p><strong>CMC test:</strong></p>
+	<pre>library(vartools)
+pgdata <- as.matrix(read.table(system.file("extdata","phengen.dat",package="vartools"), as.is=T, skip = 1))
+cmc.pvalue <- cmc(table=pgdata)
+print(cmc.pvalue)</pre>
+
+<p><strong>VT test:</strong></p>
+	<pre>library(vartools)
+?vt
+casectrl.dat <- read.table(system.file("extdata","phengen2.dat",package="vartools"), skip = 1)
+vt.stat <- vt(casectrl.dat)
+vt.stat</pre>
+
+<p><strong>RareCover test:</strong></p>
+	<pre>library(vartools)
+?rarecover
+
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rarecover.stat <- rarecover(casectrl.dat)
+rarecover.stat
+</pre>
+
+<p><strong>RBT:</strong></p>
+	<pre>library(vartools)
+?rbt
+
+casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1)
+rbt.stat <- rbt(casectrl.dat)
+rbt.stat
+</pre>
+
+<p><strong>Other tests</strong></p>
+In addition, <tt>vartools</tt> offers SKAT, WSS, aSum tests.Please check the user manual to use them.
+
+	</div>
+</div>
+
+      </div>
+      <hr>
+      <footer>
+        <p><small>
+  <!-- start of Project's footer; modify this part -->
+              <a href="http://www.infographics.moscow"> &copy; 2014 Inforgaphics.Moscow</a>
+  <!-- end of Project's footer; modify this part -->
+        </small></p>
+      </footer>
+
+    </div>
+    
+  </body>
+</html>
+
