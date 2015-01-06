@@ -1,9 +1,0 @@
-Package: vartools
-Type: Package
-Title: Variant Association Tools R-package
-Version: 1.1.0
-Date: 2015-01-03
-Author: I.Y. Zhbannikov
-Maintainer: I.Y. Zhbannikov <ilyaz@uidaho.edu>
-Description: Computes statistics of rare vatiants using CMC, KBAC, VT and other association methods
-License: GPL

@@ -1,6 +1,0 @@
-Needed tests
-
-Joint assosiation analysis methods:
-- GRANVIL
-- WeightedBurdenBt
-- MetaSKAT
