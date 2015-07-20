@@ -4,3 +4,4 @@ Joint assosiation analysis methods:
 - GRANVIL
 - WeightedBurdenBt
 - MetaSKAT
+- Test CMC
