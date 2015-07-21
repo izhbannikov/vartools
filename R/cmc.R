@@ -77,7 +77,7 @@ cmc <- function(table, maf=0.05, perm=100) {
   ## checking arguments
   Xy_perm <- check_args(y, X, perm=perm)
   y <- Xy_perm$y
-  X <- Xy_perm$X
+  X <- as.matrix(Xy_perm$X)
   
   ## number of individuals N
   N = nrow(X)
