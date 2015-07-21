@@ -5,9 +5,9 @@ cmc_method <- function(casecon, X.new) {
   nA = sum(casecon)
   nU = N - nA
   ## matrix of genotypes in cases
-  Xx = X.new[casecon==1,]  
+  Xx = as.matrix(X.new[casecon==1,])  
   ## matrix of genotypes in controls  
-  Yy = X.new[casecon==0,] 
+  Yy = as.matrix(X.new[casecon==0,]) 
   ## get means
   Xx.mean = colMeans(Xx, na.rm=TRUE)
   Yy.mean = colMeans(Yy, na.rm=TRUE)
