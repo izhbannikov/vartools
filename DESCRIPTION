@@ -1,8 +1,8 @@
 Package: vartools
 Type: Package
 Title: Variant Association Tools R-package
-Version: 1.2.1
-Date: 2015-07-20
+Version: 1.3.0
+Date: 2015-08-20
 Author: I.Y. Zhbannikov
 Maintainer: I.Y. Zhbannikov <ilyaz@uidaho.edu>
 Depends: survival
