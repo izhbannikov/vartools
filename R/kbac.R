@@ -10,6 +10,7 @@ kbac <- function(table, alpha=NULL, num.permutation=100, quiet = T, maf.upper.bo
     aa <- alpha
     qq <- quiet
     mafUpper <- maf.upper.bound
-    pvalue <- KbacGetP(nn, qq, aa, mafUpper, xdatIn, ydatIn, mafIn, xcol, ylen, alternative)
-    return(pvalue)
+    test_results <- KbacGetP(nn, qq, aa, mafUpper, xdatIn, ydatIn, mafIn, xcol, ylen, alternative)
+    
+    return(test_results)
 }

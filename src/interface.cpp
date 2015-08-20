@@ -10,8 +10,8 @@ extern "C" {
         set_up_kbac_test(nn, qq, aa, mafUpper, xdatIn, ydatIn, mafIn, xcol, ylen);
     }
 
-    void R_do_kbac_test(double* pvalue, int* sided) {
-        do_kbac_test(pvalue, sided);
+    void R_do_kbac_test(double* pvalue, int* sided, double* test_statistic) {
+        do_kbac_test(pvalue, sided, test_statistic);
     }
 
     void R_clear_kbac_test() {

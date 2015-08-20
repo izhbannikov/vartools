@@ -19,7 +19,7 @@ public:
 	   double* xdatIn, double* ydatIn, double* mafIn, int* xcol, int* ylen);
   ~KbacTest();
 
-  void calcKbacP(double* pvalue, int* sided);
+  void calcKbacP(double* pvalue, int* sided, double* test_statistic);
 
 private:
   std::vector< std::vector<double> > m_xdat;

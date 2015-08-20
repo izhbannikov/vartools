@@ -74,7 +74,7 @@ KbacTest::KbacTest (int* nn, int* qq, double* aa, double* mafUpper,
 KbacTest::~KbacTest() {};
 
 
-void KbacTest::calcKbacP(double* pvalue, int* sided)
+void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
 {
   /*! * the KBAC Statistic: sum of genotype pattern frequencies differences, weighted by hypergeometric kernel. <br>
    * * It is a permutation based two-sided test.  <br>
@@ -279,8 +279,13 @@ void KbacTest::calcKbacP(double* pvalue, int* sided)
       if (m_adaptive != 0)
         *pvalue = m_checkAdaptivePvalue(permcount1, permcount2, iPermutation, m_adaptive, 0);
     }
-    if (*pvalue <= 1.0)
+    
+    *test_statistic = statistic;
+    
+    if (*pvalue <= 1.0) {
       break;
+    }
+    
     //!- Permutation
     random_shuffle(m_ydat.begin(), m_ydat.end());
     ++iPermutation;
@@ -290,6 +295,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided)
   else {
     *pvalue = (1.0 * permcount1 + 1.0) / (1.0 * m_nPermutations + 1.0);
   }
+  
   return;
 }
 

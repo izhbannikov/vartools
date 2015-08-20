@@ -9,8 +9,8 @@ void set_up_kbac_test(int* nn, int* qq, double* aa, double* mafUpper, double* xd
     Ktest = new KbacTest(nn, qq, aa, mafUpper, xdatIn, ydatIn, mafIn, xcol, ylen);
     return;
 }
-void do_kbac_test(double* pvalue, int* sided) {
-    Ktest->calcKbacP(pvalue, sided);
+void do_kbac_test(double* pvalue, int* sided, double* test_statistic) {
+    Ktest->calcKbacP(pvalue, sided, test_statistic);
     return;
 }
 void clear_kbac_test() {

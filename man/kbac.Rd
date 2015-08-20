@@ -20,6 +20,8 @@ kbac(table, alpha = NULL, num.permutation = NULL, quiet = T, maf.upper.bound = 1
 
 \value{
 	\item{pvalue}{the p-value of test.}
+        \item{alternative}{can have 0 or 1, depending on hyphotesis.}
+        \item{kbac.stat}{test statistics.}
 }
 
 \details{
@@ -44,13 +46,13 @@ quiet <- 1
 alternative <- 1
 maf.upper.bound <- 0.05
 casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
-kbac.pvalue <- kbac(table=casectrl.dat, alpha, num.permutation, quiet, maf.upper.bound, alternative)
-print(kbac.pvalue)
+res <- kbac(table=casectrl.dat, alpha, num.permutation, quiet, maf.upper.bound, alternative)
+print(res)
 
 # To evaluate test at small alpha we need huge number of permutations. Adaptive approach is thus necessary.
 casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
-kbac.pvalue <- kbac(table=casectrl.dat, 0.00001, 1000000, quiet, maf.upper.bound, alternative)
-print(kbac.pvalue)
+res <- kbac(table=casectrl.dat, 0.00001, 1000000, quiet, maf.upper.bound, alternative)
+print(res)
 
 # Not using adaptive p-value calculation; will take longer time
 casectrl.dat <- read.table(system.file("extdata","phengen.dat",package="vartools"), skip = 1) 
