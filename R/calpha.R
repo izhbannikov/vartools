@@ -42,6 +42,7 @@ calpha <- function(table, permutations=NULL) {
     m <- ncol(variants)
     # Copies of the i-th variant type
     n <- apply(as.matrix(variants), 2, function(x) sum(x>0, na.rm=TRUE))
+    #print(n)
     # copies of the i-th variant type in the cases
     g <- apply(as.matrix(variants[casecon==1,]), 2, function(x) sum(x>0, na.rm=TRUE))
     
@@ -49,9 +50,14 @@ calpha <- function(table, permutations=NULL) {
     calpha.stat <- calpha_method(casecon, variants)
     # Variance of Talpha:
     Valpha <- 0
+    #for (i in 1:m) {
+    #  for (u in 0:n[i]) {
+    #    Valpha <- Valpha + (((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
+    #  }
+    #}
     for (i in 1:m) {
       for (u in 0:n[i]) {
-        Valpha <- Valpha + (((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
+        Valpha <- Valpha + n[i]*(((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
       }
     }
     
