@@ -50,16 +50,16 @@ calpha <- function(table, permutations=NULL) {
     calpha.stat <- calpha_method(casecon, variants)
     # Variance of Talpha:
     Valpha <- 0
-    #for (i in 1:m) {
-    #  for (u in 0:n[i]) {
-    #    Valpha <- Valpha + (((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
-    #  }
-    #}
     for (i in 1:m) {
       for (u in 0:n[i]) {
-        Valpha <- Valpha + n[i]*(((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
+        Valpha <- Valpha + (((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
       }
     }
+    #for (i in 1:m) {
+    #  for (u in 0:n[i]) {
+    #    Valpha <- Valpha + n[i]*(((u - n[i]*p0)^2 - n[i]*p0*(1-p0))^2)*dbinom(u, n[i], p0)
+    #  }
+    #}
     
     names(Valpha) <- NULL
     # Z-score:
