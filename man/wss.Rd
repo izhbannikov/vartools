@@ -16,6 +16,7 @@ wss(table, perm=100)
 \value{
 A list with the following elements:
 \item{wss.stat}{WSS statistic}
+\item{asym.pval}{asymptotic p-value}
 \item{perm.pval}{permuted p-value; only when \code{permutations} is used}
 \item{args}{descriptive information with number of controls, cases,variants, and permutations}
 \item{name}{name of the statistic}

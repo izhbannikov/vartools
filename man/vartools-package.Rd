@@ -16,8 +16,8 @@ Variant Association tools
 \tabular{ll}{
 Package: \tab vartools\cr
 Type: \tab Package\cr
-Version: \tab 1.3.0\cr
-Date: \tab 2015-08-21\cr
+Version: \tab 1.4.0\cr
+Date: \tab 2015-10-04\cr
 License: \tab GPL (>= 2) \cr
 Project URL: \tab \url{https://github.com/izhbannikov/vartools}
 }

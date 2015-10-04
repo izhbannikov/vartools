@@ -28,16 +28,31 @@ wss_method <- function(casecon, gen) {
 }
 
 wss <- function(table, perm=100) {
+  
   y <- as.numeric(as.matrix(table[,1]))
   X <- as.matrix(table[,-1])
+  
+  
   ## checking arguments
   Xy_perm <- check_args(y, X, perm)
   y <- Xy_perm$y
   X <- Xy_perm$X
   perm <- Xy_perm$perm
+  
+  ## number of individuals N
+  N = nrow(X)
+  ## number of variants
+  M = ncol(X)
     
   ## running wss method
   wss.stat <- wss_method(y, X)  
+  
+  ## Asymptotic p-values
+  # under the null hypothesis T2 follows an F distribution 
+  f.stat = wss.stat * (N-M-1)/(M*(N-2))
+  df1 = M          # degrees of freedom  
+  df2 = N - M - 1  # degrees of freedom  
+  asym.pval = 1 - pf(f.stat, df1, df2)
     
   ## permutations
   perm.pval <- NA
@@ -56,8 +71,9 @@ wss <- function(table, perm=100) {
   arg.spec <- c(sum(y), length(y)-sum(y), ncol(X), perm)
   names(arg.spec) <- c("cases", "controls", "variants", "n.perms")  
   res <- list(wss.stat = wss.stat, 
-            perm.pval = perm.pval, 
-            args = arg.spec, 
-            name = name)
+              asym.pval = asym.pval,
+              perm.pval = perm.pval, 
+              args = arg.spec, 
+              name = name)
   return(res)
 }
