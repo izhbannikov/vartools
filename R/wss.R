@@ -48,11 +48,14 @@ wss <- function(table, perm=100) {
   wss.stat <- wss_method(y, X)  
   
   ## Asymptotic p-values
-  # under the null hypothesis T2 follows an F distribution 
-  f.stat = wss.stat * (N-M-1)/(M*(N-2))
-  df1 = M          # degrees of freedom  
-  df2 = N - M - 1  # degrees of freedom  
-  asym.pval = 1 - pf(f.stat, df1, df2)
+  # under the null hypothesis test statistics follows an F distribution 
+  #f.stat = wss.stat * (N-M-1)/(M*(N-2))
+  #df1 = M          # degrees of freedom  
+  #df2 = N - M - 1  # degrees of freedom  
+  #asym.pval = 1 - pf(f.stat, df1, df2)
+  ## Asymptotic p-values
+  # under the null hypothesis test statistics follows a standard normal distribution 
+  asym.pval = 1 - pnorm(wss.stat)
     
   ## permutations
   perm.pval <- NA
