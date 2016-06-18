@@ -12,5 +12,15 @@ kbac <- function(table, alpha=NULL, num.permutation=100, quiet = T, maf.upper.bo
     mafUpper <- maf.upper.bound
     test_results <- KbacGetP(nn, qq, aa, mafUpper, xdatIn, ydatIn, mafIn, xcol, ylen, alternative)
     
-    return(test_results)
+    ## results
+    name <- "KBAC: kernel-based adaptive cluster"
+    arg.spec <- c(sum(table[,1]), length(table[,1])-sum(table[,1]), xcol, num.permutation)
+    names(arg.spec) <- c("cases", "controls", "variants", "n.perms")  
+    res <- list(kbac.stat = test_results$kbac.stat, 
+                asym.pval = ifelse(num.permutation==0, test_results$pvalue, NA),
+                perm.pval = ifelse(num.permutation==0, NA, test_results$pvalue), 
+                args = arg.spec, 
+                name = name)
+    
+    return(res)
 }

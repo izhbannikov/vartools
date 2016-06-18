@@ -5,6 +5,8 @@
 #include "ranker.hpp"
 #include "gsl_cdf.h"
 #include "gsl_randist.h"
+
+
 namespace {
   const double AFFECTED = 1.0, UNAFFECTED = 0.0, HOMO_ALLELE = 2.0, 
         MINOR_ALLELE = 1.0, MAJOR_ALLELE = 0.0, MISSING_ALLELE = -9.0;
@@ -83,7 +85,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
    */
   if (*sided == 0 || *sided > 2)
     *sided = 1;
-
+  
   //!- trim data by mafs upper-lower bounds
   m_trimXdat();
 
@@ -91,6 +93,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
   unsigned int sampleSize = m_ydat.size();
   // sample size
   unsigned int regionLen = m_xdat[0].size();
+  
   // candidate region length
   unsigned int nCases = 0; 
   // case size
@@ -106,7 +109,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
     std::cout << "Number of cases: " << nCases << std::endl;
     std::cout << "Candidate region length: " << regionLen << std::endl;
   }
-
+  
   std::vector<double> genotypeId(sampleSize);   
   //!-Compute unique genotype patterns (string) as ID scores (double) 
   bool hasWt = false;
@@ -142,8 +145,9 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
     if (!(genotypeId[i] > MAJOR_ALLELE) && !hasWt)
       hasWt = true;
   }
+  
   rank(genotypeId, genotypeId, "default");
-
+  
   // remove wildtype and get unique genotype patterns 
   //!- Unique genotype patterns that occur in the sample
   std::vector<double> uniquePattern = genotypeId;
@@ -177,7 +181,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
       // genotype pattern not found -- move on to next pattern
     }
   }
-
+  
   if (m_quiet == false) {
     std::cout << "\nGenotype pattern loading ranks: " << std::endl;
     std::cout << genotypeId << std::endl;
@@ -189,7 +193,9 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
   unsigned int iPermutation = 0;
   unsigned int permcount1 = 0, permcount2 = 0;
   double observedStatistic = 0.0;
-  while (iPermutation <= m_nPermutations) {
+  
+  if(m_nPermutations > 0) {
+    while (iPermutation <= m_nPermutations) {
 
     // the KBAC statistic. Will be of length 1 or 2
     std::vector<double> kbacStatistics(0);
@@ -201,7 +207,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
       for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
         uniquePatternCountsSub[u] = 0;
       // genotype pattern counts in cases (for the 1st model, or ctrls for the 2nd model) 
-
+      
       for (unsigned int i = 0; i != sampleSize; ++i) {
         if ( m_ydat[i] == (AFFECTED - 1.0 * s) ) {
           // for each "case (for the 1st model, or ctrls for 2nd model)", identify/count its genotype pattern
@@ -218,7 +224,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
         }
         else;
       }
-
+      
       //!- KBAC weights
       std::vector<double> uniquePatternWeights(uniquePattern.size());
       // genotype pattern weights, the hypergeometric distribution cmf
@@ -233,10 +239,10 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
           uniquePatternWeights[u] = gsl_cdf_hypergeometric_P(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
           //uniquePatternWeights[u] = gw_hypergeometric_cmf(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
       }
-
+      
       if (m_quiet == false && iPermutation == 0) {
-	std::cout << "\nUnique genotype patterns weights (model " << s+1 << "):" << std::endl;
-	std::cout << uniquePatternWeights << std::endl;
+	      std::cout << "\nUnique genotype patterns weights (model " << s+1 << "):" << std::endl;
+	      std::cout << uniquePatternWeights << std::endl;
       }
 
       //!- KBAC statistic: sum of genotype pattern frequencies differences in cases vs. controls, weighted by the hypergeometric distribution kernel
@@ -290,11 +296,218 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
     random_shuffle(m_ydat.begin(), m_ydat.end());
     ++iPermutation;
   }
-
-  if (*pvalue <= 1.0);
-  else {
-    *pvalue = (1.0 * permcount1 + 1.0) / (1.0 * m_nPermutations + 1.0);
-  }
+    
+    if (*pvalue <= 1.0);
+    else {
+      *pvalue = (1.0 * permcount1 + 1.0) / (1.0 * m_nPermutations + 1.0);
+    }
+  //}
+    
+  } else { // Monte-Carlo approximation
+      // the KBAC statistic. Will be of length 1 or 2
+      std::vector<double> kbacStatistics(0);
+      // two models
+      for (unsigned int s = 0; s != *sided; ++s) {
+        
+        //!- count number of sample cases (for the 1st model, or ctrls for the 2nd model) for each genotype pattern
+        unsigned int uniquePatternCountsSub[uniquePattern.size()];
+        for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
+          uniquePatternCountsSub[u] = 0;
+        // genotype pattern counts in cases (for the 1st model, or ctrls for the 2nd model) 
+        
+        for (unsigned int i = 0; i != sampleSize; ++i) {
+          if ( m_ydat[i] == (AFFECTED - 1.0 * s) ) {
+            // for each "case (for the 1st model, or ctrls for 2nd model)", identify/count its genotype pattern
+            for (unsigned int u = 0; u != uniquePattern.size(); ++u) {
+              if (genotypeId[i] == uniquePattern[u]) {
+                // genotype pattern identified in cases (for the 1st model, or ctrls for 2nd model)
+                ++uniquePatternCountsSub[u];
+                // count this genotype pattern
+                break;
+              }
+              else;
+              // genotype pattern not found -- move on to next pattern
+            }
+          }
+          else;
+        }
+        
+        //!- KBAC weights
+        std::vector<double> uniquePatternWeights(uniquePattern.size());
+        // genotype pattern weights, the hypergeometric distribution cmf
+        for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
+          uniquePatternWeights[u] = 0.0;
+        
+        for (unsigned int u = 0; u != uniquePattern.size(); ++u) {
+          if (s == 0) 
+            uniquePatternWeights[u] = gsl_cdf_hypergeometric_P(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCases);
+          //uniquePatternWeights[u] = gw_hypergeometric_cmf(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCases);
+          else
+            uniquePatternWeights[u] = gsl_cdf_hypergeometric_P(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
+          //uniquePatternWeights[u] = gw_hypergeometric_cmf(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
+        }
+        
+        if (m_quiet == false && iPermutation == 0) {
+          std::cout << "\nUnique genotype patterns weights (model " << s+1 << "):" << std::endl;
+          std::cout << uniquePatternWeights << std::endl;
+        }
+        
+        //!- KBAC statistic: sum of genotype pattern frequencies differences in cases vs. controls, weighted by the hypergeometric distribution kernel
+        double kbac = 0.0;
+        for (unsigned int u = 0; u != uniquePattern.size(); ++u) { 
+          if (s == 0)
+            kbac = kbac + ( (1.0 * uniquePatternCountsSub[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - uniquePatternCountsSub[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
+          else
+            kbac = kbac + ( (1.0 * uniquePatternCountsSub[u]) / (1.0 * nCtrls) - (1.0 * (uniquePatternCounts[u] - uniquePatternCountsSub[u])) / (1.0 * nCases) ) *  uniquePatternWeights[u];
+        }
+        
+        //std::cout << kbac << std::endl;
+        
+        //FIXME
+        //gw_round(kbac, 0.0001);
+        kbacStatistics.push_back(kbac);
+      }
+      
+      double statistic = 0.0;
+      //!- one model statistic
+      if (kbacStatistics.size() == 1) {
+        statistic = kbacStatistics[0];
+      }
+      //!- two model statistic
+      else if (kbacStatistics.size() == 2) {
+        statistic = fmax(kbacStatistics[0], kbacStatistics[1]);
+      }
+      else {
+        std::cerr << "**Error KBAC statistic (Error code -5)" << std::endl;
+        exit(-1);
+      }
+      
+      /*if (iPermutation == 0) 
+        observedStatistic = statistic;
+      else {
+        if (statistic >= observedStatistic) 
+          ++permcount1;
+        if (statistic <= observedStatistic)
+          ++permcount2;
+        if (m_adaptive != 0)
+          *pvalue = m_checkAdaptivePvalue(permcount1, permcount2, iPermutation, m_adaptive, 0);
+      }
+      */
+      
+      *test_statistic = statistic;
+      
+      /*
+      if (*pvalue <= 1.0) {
+        break;
+      }
+      */
+      
+      // Monte-Carlo approximation
+      std::vector<double> mcStat;
+      unsigned long nn = nCases+nCtrls;
+      while(nn > 0) {
+        std::vector<double> mcStatistics(0);
+        // two models
+        //for (unsigned int s = 0; s != *sided; ++s) {
+        unsigned int s = 0;
+          //!- count number of sample cases (for the 1st model, or ctrls for the 2nd model) for each genotype pattern
+          unsigned int uniquePatternCountsSub[uniquePattern.size()];
+          for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
+            uniquePatternCountsSub[u] = 0;
+          // genotype pattern counts in cases (for the 1st model, or ctrls for the 2nd model) 
+        
+          for (unsigned int i = 0; i != sampleSize; ++i) {
+            if ( m_ydat[i] == (AFFECTED - 1.0 * s) ) {
+              // for each "case (for the 1st model, or ctrls for 2nd model)", identify/count its genotype pattern
+              for (unsigned int u = 0; u != uniquePattern.size(); ++u) {
+                if (genotypeId[i] == uniquePattern[u]) {
+                  // genotype pattern identified in cases (for the 1st model, or ctrls for 2nd model)
+                  ++uniquePatternCountsSub[u];
+                  // count this genotype pattern
+                  break;
+                }
+                else;
+                // genotype pattern not found -- move on to next pattern
+              }
+            }
+            else;
+          }
+        
+          // binomial random number
+          std::vector<double> mBinomial(uniquePattern.size());
+          for (unsigned int u = 0; u != uniquePattern.size(); ++u) { 
+            mBinomial[u] = 0;
+            //std::cout << uniquePatternCounts[u] << std::endl;
+            mBinomial[u] = Rcpp::rbinom(1, uniquePatternCounts[u], (1.0*nCases)/(1.0*(nCases+nCtrls)))[0];
+            //std::cout << uniquePatternCounts[u] << std::endl;
+          }
+        
+          //!- MC weights
+          std::vector<double> uniquePatternWeights(uniquePattern.size());
+          // genotype pattern weights, the hypergeometric distribution cmf
+          for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
+            uniquePatternWeights[u] = 0.0;
+        
+          for (unsigned int u = 0; u != uniquePattern.size(); ++u) {
+            if (s == 0)
+              uniquePatternWeights[u] = gsl_cdf_hypergeometric_P(mBinomial[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCases);
+              //uniquePatternWeights[u] = gw_hypergeometric_cmf(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCases);
+            else
+              uniquePatternWeights[u] = gsl_cdf_hypergeometric_P(mBinomial[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
+            //uniquePatternWeights[u] = gw_hypergeometric_cmf(uniquePatternCountsSub[u], uniquePatternCounts[u], sampleSize - uniquePatternCounts[u], nCtrls);
+          }
+        
+          if (m_quiet == false && iPermutation == 0) {
+            std::cout << "\nUnique genotype patterns weights (model " << s+1 << "):" << std::endl;
+            std::cout << uniquePatternWeights << std::endl;
+          }
+        
+          //!- MC KBAC statistic: sum of genotype pattern frequencies differences in cases vs. controls, weighted by the hypergeometric distribution kernel
+          double mc = 0.0;
+          for (unsigned int u = 0; u != uniquePattern.size(); ++u) { 
+            //std::cout << mBinomial[u] << " " << uniquePatternCounts[u] << " " << uniquePatternWeights[u] << std::endl;
+            if (s == 0) {
+            //  mc = mc + ( (1.0 * mBinomial[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
+              double mc1 = ( (1.0 * mBinomial[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
+              mc += mc1*mc1;
+            } else {
+              mc = mc + ( (1.0 * mBinomial[u]) / (1.0 * nCtrls) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCases) ) *  uniquePatternWeights[u];
+            }
+          }
+        
+          //std::cout << mc << std::endl;
+        
+          mcStatistics.push_back(mc);
+        //}
+      
+        double mc_statistic = 0.0;
+        //!- one model statistic
+        if (mcStatistics.size() == 1) {
+          mc_statistic = mcStatistics[0];
+        }
+        //!- two model statistic
+        else if (mcStatistics.size() == 2) {
+          mc_statistic = fmax(mcStatistics[0], mcStatistics[1]);
+        }
+        else {
+          std::cerr << "**Error MC statistic (Error code -5)" << std::endl;
+          exit(-1);
+        }
+        mcStat.push_back(mc_statistic);
+        
+        nn--;
+      }
+      
+      // Calculate p-value from MC approximation:
+      double sum = 0.0;
+      for(unsigned long i=0; i<nCases+nCtrls; i++) {
+        if(mcStat[i] >= statistic)
+          sum += 1.0;
+      }
+      ///std::cout << mcStat << std::endl;
+      *pvalue = sum/(1.0*(nCases+nCtrls));
+      
+    }
   
   return;
 }

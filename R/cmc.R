@@ -70,6 +70,8 @@ cmc_method <- function(casecon, X.new) {
 }
 
 cmc <- function(table, maf=0.05, perm=100) {
+  #table = pgdata
+  #maf=0.05
   # Input table consists of columns and rows. Rows are individuals and columns are:
   # First column represents a status (disease / no disease) and other column represent markers.
   y <- as.numeric(as.matrix(table[,1]))

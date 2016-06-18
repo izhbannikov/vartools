@@ -16,12 +16,13 @@ calpha_method <- function(casecon, gen) {
 
 # This is C(aplpa) method
 calpha <- function(table, permutations=NULL) {  
-    casecon <- as.numeric(as.matrix(table[,1]))
-    variants <- as.matrix(table[,-1])
+  
+  casecon <- as.numeric(as.matrix(table[,1]))
+  variants <- as.matrix(table[,-1])
     
-    ## Checking arguments for correctness:
-    if (!is.null(permutations))
-    {
+  ## Checking arguments for correctness:
+  if (!is.null(permutations))
+  {
       if (mode(permutations) != "numeric" || length(permutations) != 1
           || permutations < 0 || (permutations %% 1) !=0) 
       {
@@ -42,7 +43,7 @@ calpha <- function(table, permutations=NULL) {
     m <- ncol(variants)
     # Copies of the i-th variant type
     n <- apply(as.matrix(variants), 2, function(x) sum(x>0, na.rm=TRUE))
-    #print(n)
+    
     # copies of the i-th variant type in the cases
     g <- apply(as.matrix(variants[casecon==1,]), 2, function(x) sum(x>0, na.rm=TRUE))
     
