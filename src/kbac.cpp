@@ -408,8 +408,8 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
       while(nn > 0) {
         std::vector<double> mcStatistics(0);
         // two models
-        //for (unsigned int s = 0; s != *sided; ++s) {
-        unsigned int s = 0;
+        for (unsigned int s = 0; s != *sided; ++s) {
+          //unsigned int s = 0;
           //!- count number of sample cases (for the 1st model, or ctrls for the 2nd model) for each genotype pattern
           unsigned int uniquePatternCountsSub[uniquePattern.size()];
           for (unsigned int u = 0; u != uniquePattern.size(); ++u) 
@@ -468,8 +468,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
             //std::cout << mBinomial[u] << " " << uniquePatternCounts[u] << " " << uniquePatternWeights[u] << std::endl;
             if (s == 0) {
             //  mc = mc + ( (1.0 * mBinomial[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
-              double mc1 = ( (1.0 * mBinomial[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
-              mc += mc1*mc1;
+              mc += ( (1.0 * mBinomial[u]) / (1.0 * nCases) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCtrls) ) *  uniquePatternWeights[u];
             } else {
               mc = mc + ( (1.0 * mBinomial[u]) / (1.0 * nCtrls) - (1.0 * (uniquePatternCounts[u] - mBinomial[u])) / (1.0 * nCases) ) *  uniquePatternWeights[u];
             }
@@ -478,7 +477,7 @@ void KbacTest::calcKbacP(double* pvalue, int* sided, double* test_statistic)
           //std::cout << mc << std::endl;
         
           mcStatistics.push_back(mc);
-        //}
+        }
       
         double mc_statistic = 0.0;
         //!- one model statistic
