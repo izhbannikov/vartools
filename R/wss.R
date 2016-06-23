@@ -24,6 +24,7 @@ wss_method <- function(casecon, gen) {
   
   ## sum of ranks of cases
   x <- sum(rank.score[which(casecon==1)])
+  
   return(x)
 }
 
@@ -47,18 +48,10 @@ wss <- function(table, perm=100) {
   ## running wss method
   wss.stat <- wss_method(y, X)  
   
-  ## Asymptotic p-values
-  # under the null hypothesis test statistics follows an F distribution 
-  #f.stat = wss.stat * (N-M-1)/(M*(N-2))
-  #df1 = M          # degrees of freedom  
-  #df2 = N - M - 1  # degrees of freedom  
-  #asym.pval = 1 - pf(f.stat, df1, df2)
-  ## Asymptotic p-values
-  # under the null hypothesis test statistics follows a standard normal distribution 
-  asym.pval = 1 - pnorm(wss.stat)
     
   ## permutations
   perm.pval <- NA
+  asym.pval <- NA
   if (perm > 0) {
     x.perm <- rep(0, perm)
     for (i in 1:perm) {
@@ -67,6 +60,17 @@ wss <- function(table, perm=100) {
     }
     # p-value 
     perm.pval <- sum(x.perm > wss.stat) / perm
+  } else {
+    ## Asymptotic p-values
+    # under the null hypothesis test statistics follows a standard normal distribution 
+    x.perm <- rep(0, N)
+    for (i in 1:N) {
+      perm.sample <- sample(1:length(y))
+      x.perm[i] <- wss_method(y[perm.sample], X) 
+    }
+    # p-value 
+    z.score <- (wss.stat - mean(x.perm))/sd(x.perm)
+    asym.pval = 1 - pnorm(z.score)
   }
     
   ## results
